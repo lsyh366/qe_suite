@@ -1,0 +1,23 @@
+ &control
+    calculation     = 'scf'
+    prefix          = 'PREFIX'
+    restart_mode    = 'RESTART_MODE'
+    wf_collect      = 'WF_COLLECT'
+    pseudo_dir      = 'PSEUDO_DIR'
+    outdir          = 'OUTDIR'
+    verbosity       = 'VERBOSITY'
+    tprnfor         = TPRNFOR
+    tstress         = TSTRESS
+/
+ &electrons
+    diagonalization = 'DIAGONALIZATION'
+    mixing_beta     = MIXING_BETA
+    conv_thr        = CONV_THR
+/
+ &system
+    ecutwfc = ECUTWFC, ecutrho= ECUTRHO,
+    occupations = 'OCCUPATIONS' 
+    noncolin = NONCOLIN
+    lspinorb = LSPINORB
+    london = LONDON
+    nbnd = NBND,
