@@ -1,0 +1,46 @@
+ &control
+    calculation     = 'nscf'
+    prefix          = 'Bi2Se3'
+    restart_mode    = 'from_scratch'
+    wf_collect      = .false.
+    pseudo_dir      = '../PP/'
+    outdir          = './'
+    verbosity       = 'high'
+    tprnfor         = .true.
+    tstress         = .true.
+ /
+ &system
+    ibrav=0, 
+    nat= 5, ntyp= 2 , nbnd=100
+    ecutwfc = 60, ecutrho =720 ,
+    occupations = 'tetrahedra'
+    noncolin=.true.
+    lspinorb=.true. 
+    london =.true.
+ /
+ &electrons
+    diagonalization = 'david'
+    mixing_beta     = 0.7
+    conv_thr        = 1.0d-8
+ /
+ATOMIC_SPECIES   
+Bi 208.9804 Bi.rel-pbe-dn-kjpaw_psl.1.0.0.UPF
+Se  78.9600 Se.rel-pbe-dn-kjpaw_psl.1.0.0.UPF 
+
+CELL_PARAMETERS (angstrom)
+  -2.069000000  -1.194537707   9.546666666
+   2.069000000  -1.194537707   9.546666666
+   0.000000000   2.389075414   9.546666666
+
+ATOMIC_POSITIONS (crystal)
+Bi      -0.400253024  -0.400253024  -0.400253024
+Se       0.000000000  -0.000000000  -0.000000000
+Bi       0.400253024   0.400253024   0.400253024
+Se      -0.210597067  -0.210597067  -0.210597067
+Se       0.210597067   0.210597067   0.210597067
+
+K_POINTS   automatic
+   51 51 51 0 0 0
+
+
+
