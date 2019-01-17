@@ -3,6 +3,7 @@ import re
 import os
 import sys
 import nltk
+import pickle
 #nltk.download('punkt')
 
 def last_line(string, file):
@@ -76,55 +77,85 @@ def get_structure(output_file):
         
     
     
-        return vectors, rec_vectors, atom_types, cart_atoms, cryst_atoms,
+        return np.array(vectors), np.array(rec_vectors), atom_types, np.array(cart_atoms), np.array(cryst_atoms)
 
-def scf_summary(output_file):
-    file = open(output_file)
-    
+def get_scf_dict(scf_output_file, pickle_name):
+
+    file = open(scf_output_file)
+    scf_dict = {}
     for line in file:
         
         x = re.findall('!', line)
         if len(x) >0:
             total_energy = re.sub("[^0-9-.]", "", line)
             total_energy = float(total_energy)
+            scf_dict['total_energy'] = total_energy
         x = re.findall('lattice parameter', line)
         if len(x)>0:
             alat= re.sub("[^0-9-.]", "", line) #Will have two extra dots at end of number
-            alat = float(alat[:-2])   
+            alat = float(alat[:-2]) 
+            scf_dict['alat'] = alat
         x = re.findall('number of atoms/cell', line)
         if len(x) > 0:
             natoms = re.sub("[^0-9]", "", line)
             natoms = int(natoms)
+            scf_dict['natoms'] = natoms
         x = re.findall('number of atomic types', line)
         if len(x) >0:
             ntypes = re.sub("[^0-9]", "", line)
             ntypes = int(ntypes)
+            scf_dict['ntypes'] = ntypes
         x = re.findall('kinetic-energy cutoff', line)
         if len(x) >0:
             ecutwfc = re.sub("[^0-9-.]", "", line) #Will have extra hyphen at beginning
             ecutwfc = float(ecutwfc[1:])
+            scf_dict['ecutwfc'] = ecutwfc
         x = re.findall('charge density cutoff', line)
         if len(x) >0:
             ecutrho = re.sub("[^0-9-.]", "", line)
             ecutrho = float(ecutrho)
+            scf_dict['ecutrho'] = ecutrho
         x = re.findall('convergence threshold', line)
         if len(x) > 0:
             conv_thr = re.sub("[^0-9-.-E]", "", line) #Will have extra = at beginning
             conv_thr = float(conv_thr[1:])
+            scf_dict['conv_thr'] = conv_thr
         x = re.findall('mixing beta', line)
         if len(x) >0:
             mixing_beta = re.sub("[^0-9-.]", "", line)
             mixing_beta = float(mixing_beta)
+            scf_dict['mixing_beta'] = mixing_beta
         x = re.findall('number of electrons', line)
         if len(x) > 0:
             num_electrons = re.sub("[^0-9-.]", "", line)
             num_electrons = int(float(num_electrons))
+            scf_dict['num_electrons'] = num_electrons
         x = re.findall('number of Kohn-Sham states', line)
         if len(x) >0:
             nbnd = re.sub("[^0-9]", "", line)
             nbnd = int(float(nbnd))
-
+            scf_dict['nbnd'] = nbnd
     vectors, rec_vectors, atom_types, cart_atoms, cryst_atoms = get_structure(output_file)
+    
+    scf_dict['vectors'] = vectors
+    scf_dict['rec_vectors'] = rec_vectors
+    scf_dict['cart_atoms'] = cart_atoms
+    scf_dict['cryst_atoms'] = cryst_atoms
+    scf_dict['atom_types'] = atom_types
+    
+    pickle.dump(scf_dict, open(pickle_name, 'wb'))
+    
+
+    return scf_dict
+
+def scf_summary(scf_dict):
+
+    vectors = scf_dict['vectors']
+    rec_vectors = scf_dict['rec_vectors']
+    cart_atoms = scf_dict['cart_atoms']
+    cryst_atoms = scf_dict['cryst_atoms']
+    atom_types = scf_dict['atom_types']
+
     a1, a2, a3 = vectors[0], vectors [1], vectors[2]
     b1, b2, b3 = rec_vectors[0], rec_vectors[1], rec_vectors[2]
     
@@ -133,35 +164,24 @@ def scf_summary(output_file):
     print('a2 = ', a2)
     print('a3 = ', a3)
     print('')
-    #print('Cartesian Reciprocal Lattice Vectors (a.u.)^-1')
-    #print('b1 =', b1)
-    #print('b2 =', b2)
-    #print('b3 =', b3)
-    #print('')
     print('Atomic Species')
     print(atom_types)
     print('')
     print('Cartesian Atomic positions (a.u.)')
     print(cart_atoms)
     print('')
-    #print('Crystallographic atomic positions')
-    #print(cryst_atoms)
-    #print('')
-    #print('Lattice parameter = ' + str(alat) + ' (a.u.)')
-    #print('Number of atoms = ' + str(natoms))
-    #print('Number of atomic species = ' + str(ntypes))  
-    print('Wavefunction energy cutoff = ' + str(ecutwfc) + ' Rydberg')
-    print('Charge density cutoff = ' + str(ecutrho) + ' Rydberg')
-    print('Convergence threshold = ' + str(conv_thr))
-    #print('Mixing beta = ' , mixing_beta)
-    print('Number of electrons = ', num_electrons)
-    print('Number of Kohn-Sham states = ', nbnd)
+    print('Wavefunction energy cutoff = ' + str(scf_dict['ecutwfc']) + ' Rydberg')
+    print('Charge density cutoff = ' + str(scf_dict['ecutrho']) + ' Rydberg')
+    print('Convergence threshold = ' + str(scf_dict['conv_thr']))
+    print('Number of electrons = ', scf_dict['num_electrons'])
+    print('Number of Kohn-Sham states = ', scf_dict['nbnd'])
     print('')
-    print('Total energy = ' + str(total_energy) + ' Rydberg')    
+    print('Total energy = ' + str(scf_dict['total_energy']) + ' Rydberg')    
 
 
 if __name__ == "__main__" :
     print('')
-    file_to_summarize = sys.argv[1]
-    scf_summary(file_to_summarize)
+    output_file = sys.argv[1]
+    json_name = sys.argv[2]
+    scf_summary(get_scf_dict(output_file, json_name))
 
