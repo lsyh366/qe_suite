@@ -1,0 +1,46 @@
+GaAs-F43m
+zinc-blende
+&control
+    calculation='vc-relax'
+    restart_mode='from_scratch',
+    prefix='gaas'
+    pseudo_dir='../PP/'
+    verbosity='high'
+    tprnfor=.true.
+    nstep=500
+    tstress=.true.
+    etot_conv_thr=1.0e-06
+    forc_conv_thr=1.0e-05
+/
+&system
+    ibrav=2,celldm(1)=10.838928,
+    ecutwfc = 60, ecutrho=240,
+    occupations = 'fixed' ,
+    nbnd = 12
+    nat=2, ntyp= 2
+/
+&electrons
+    diagonalization='david'
+    conv_thr = 1.0e-10
+    mixing_beta = 0.7
+    electron_maxstep = 500
+    mixing_mode = 'plain'
+/
+&IONS
+  ion_dynamics = 'bfgs'
+  pot_extrapolation='atomic'
+  wfc_extrapolation='atomic'
+/
+&CELL
+  cell_dynamics = 'bfgs'
+  wmass=0.002
+  cell_factor=2.0
+/
+ATOMIC_SPECIES
+Ga   69.723   Ga.pbe-hgh.UPF
+As   74.92160 As.pbe-hgh.UPF
+ATOMIC_POSITIONS  crystal
+  Ga 0.0   0.0   0.0
+  As -0.25  0.75  -0.25
+K_POINTS   automatic
+   10 10 10 0 0 0

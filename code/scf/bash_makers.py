@@ -4,7 +4,7 @@
 import os
 import sys
 
-def make_bash_niagara(filename, bash_stencil = 'bash_stencil', nodes=1, ntasks=40, time='02:00:00', mail_type = 'END,FAIL', mail_user = 'slurmnotifs@gmail.com', account ='rrg-maassenj', job_name = 'scf', executable = 'pw.x', qe_inputfile = 'scf.in', qe_outputfile = 'scf.out'):
+def make_bash_niagara(filename, bash_stencil = 'bash_stencil', nodes=1, ntasks=40, time='04:00:00', mail_type = 'END,FAIL', mail_user = 'slurmnotifs@gmail.com', account ='rrg-maassenj', job_name = 'scf', executable = 'pw.x', qe_inputfile = 'scf.in', qe_outputfile = 'scf.out'):
 
     s = open(bash_stencil).read()
     s = s.replace('NODES', str(nodes))
@@ -23,7 +23,8 @@ def make_bash_niagara(filename, bash_stencil = 'bash_stencil', nodes=1, ntasks=4
     f = open(filename, 'w')
     f.write(s)
     f.close()
-
+    
+    os.system('dos2unix ' + filename)
 if __name__ == "__main__":
     filename = sys.argv[1]
     make_bash_niagara(filename)
