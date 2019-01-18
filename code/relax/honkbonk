@@ -1,27 +1,19 @@
-GaAs-F43m
-zinc-blende
 &control
     calculation='vc-relax'
-    restart_mode='from_scratch',
-    prefix='gaas'
+    restart_mode='from_scatch',
+    prefix='relax'
+    wf_collect = .false.
     pseudo_dir='../PP/'
     verbosity='high'
     tprnfor=.true.
     nstep=500
     tstress=.true.
-    etot_conv_thr=1.0e-06
-    forc_conv_thr=1.0e-05
-/
-&system
-    ibrav=2,celldm(1)=10.838928,
-    ecutwfc = 60, ecutrho=240,
-    occupations = 'fixed' ,
-    nbnd = 12
-    nat=2, ntyp= 2
+    etot_conv_thr=1e-06
+    forc_conv_thr=1e-05
 /
 &electrons
     diagonalization='david'
-    conv_thr = 1.0e-10
+    conv_thr = 1e-12
     mixing_beta = 0.7
     electron_maxstep = 500
     mixing_mode = 'plain'
@@ -35,6 +27,16 @@ zinc-blende
   cell_dynamics = 'bfgs'
   wmass=0.002
   cell_factor=2.0
+/
+&system
+    ecutwfc = 60, ecutrho=120,
+    occupations = 'fixed' ,
+    noncolin = .false.
+    lspinorb = .false.
+    london = .false.
+    nbnd = 16
+    ibrav=2,celldm(1)=10.838928,
+    nat=2, ntyp= 2
 /
 ATOMIC_SPECIES
 Ga   69.723   Ga.pbe-hgh.UPF

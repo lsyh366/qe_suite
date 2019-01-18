@@ -6,6 +6,12 @@ import nltk
 import pickle
 #nltk.download('punkt')
 
+def file_len(fname):
+    with open(fname) as f:
+        for i in enumerate(f,1):
+            pass
+    return i[0] 
+
 def last_line(string, file):
             """Returns line number of last occurence of a given string in a given file"""
             counter = 0
@@ -79,6 +85,29 @@ def get_structure(output_file):
     
         return np.array(vectors), np.array(rec_vectors), atom_types, np.array(cart_atoms), np.array(cryst_atoms)
 
+def get_scf_convergence(output_file):
+    
+    accuracies = []
+    hf_estimates=[]
+    total_energies = []
+    total_cpu_time = []
+
+    num_lines = file_len(output_file)
+    file = open(output_file)
+    lines = file.readlines()
+
+    for k in range(num_lines):
+        line = lines[k]
+        if 'estimated scf accuracy' in line:
+            accuracies.append(float(nltk.word_tokenize(line)[-2]))
+            upone = lines[k-1]
+            uptwo = lines[k-2]
+            hf_estimates.append(float(nltk.word_tokenize(upone)[-2]))
+            total_energies.append(float(nltk.word_tokenize(uptwo)[-2]))
+        if 'total cpu time spent up to now' in line:
+            total_cpu_time.append(float(nltk.word_tokenize(line)[-2]))
+    return np.array(accuracies), np.array(hf_estimates), np.array(total_energies), np.array(total_cpu_time)
+
 def get_scf_dict(scf_output_file, pickle_name):
 
     file = open(scf_output_file)
@@ -135,17 +164,22 @@ def get_scf_dict(scf_output_file, pickle_name):
             nbnd = re.sub("[^0-9]", "", line)
             nbnd = int(float(nbnd))
             scf_dict['nbnd'] = nbnd
-    vectors, rec_vectors, atom_types, cart_atoms, cryst_atoms = get_structure(output_file)
-    
+    vectors, rec_vectors, atom_types, cart_atoms, cryst_atoms = get_structure(scf_output_file)
+    accuracies, hf_estimates, total_energies, total_cpu_time = get_scf_convergence(scf_output_file)
+
     scf_dict['vectors'] = vectors
     scf_dict['rec_vectors'] = rec_vectors
     scf_dict['cart_atoms'] = cart_atoms
     scf_dict['cryst_atoms'] = cryst_atoms
     scf_dict['atom_types'] = atom_types
     
+    scf_dict['accuracies'] = accuracies
+    scf_dict['hf_estimates'] = hf_estimates
+    scf_dict['total_energies'] = total_energies
+    scf_dict['total_cpu_time'] = total_cpu_time
+
     pickle.dump(scf_dict, open(pickle_name, 'wb'))
     
-
     return scf_dict
 
 def scf_summary(scf_dict):
@@ -163,12 +197,22 @@ def scf_summary(scf_dict):
     print('a1 = ', a1)
     print('a2 = ', a2)
     print('a3 = ', a3)
+   
+    print('')
+    print('Cartesian Reciprocal Lattice Vectors (2*pi/a.u.)')
+    print('b1 = ', b1)
+    print('b2 = ', b2)
+    print('b3 = ', b3)
+
+
     print('')
     print('Atomic Species')
     print(atom_types)
+    
     print('')
     print('Cartesian Atomic positions (a.u.)')
     print(cart_atoms)
+    
     print('')
     print('Wavefunction energy cutoff = ' + str(scf_dict['ecutwfc']) + ' Rydberg')
     print('Charge density cutoff = ' + str(scf_dict['ecutrho']) + ' Rydberg')
@@ -182,6 +226,6 @@ def scf_summary(scf_dict):
 if __name__ == "__main__" :
     print('')
     output_file = sys.argv[1]
-    json_name = sys.argv[2]
-    scf_summary(get_scf_dict(output_file, json_name))
+    pickle_name = sys.argv[2]
+    scf_summary(get_scf_dict(output_file, pickle_name))
 

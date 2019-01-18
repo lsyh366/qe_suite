@@ -18,7 +18,7 @@ nbnd       : Number of bands to include in SCF calculation
 import os
 import sys
 
-def make_relax_input(filename, structure_file, kpoint_list, prefix, relax_stencil = 'relax_stencil', calculation = 'vc-relax',nstep=500, restart_mode = 'from_scatch', wf_collect = 'false', pseudo_dir = '../PP/', outdir = './', verbosity ='high', tprnfor = 'true', tstress= 'true', etot_conv_thr = 1e-6, forc_conv_thr = 1e-5, diagonalization = 'david', mixing_beta = 0.7, conv_thr = 1e-12,electron_maxstep = 500, mixing_mode = 'plain', ion_dynamics = 'bfgs', pot_extrapolation='atomic', wfc_extrapolation = 'atomic', cell_dynamics = 'bfgs', wmass=0.002, cell_factor = 2.0, ecutwfc = 60, ecutrho = 120, occupations = 'fixed', noncolin = 'false', lspinorb = 'false', london = 'false', nbnd = 16):
+def make_relax_input(filename, structure_file, kpoint_list, prefix='relax', relax_stencil = 'relax_stencil', calculation = 'vc-relax',nstep=500, restart_mode = 'from_scatch', wf_collect = 'false', pseudo_dir = '../PP/', outdir = './', verbosity ='high', tprnfor = 'true', tstress= 'true', etot_conv_thr = 1e-6, forc_conv_thr = 1e-5, diagonalization = 'david', mixing_beta = 0.7, conv_thr = 1e-12,electron_maxstep = 500, mixing_mode = 'plain', ion_dynamics = 'bfgs', pot_extrapolation='atomic', wfc_extrapolation = 'atomic', cell_dynamics = 'bfgs', wmass=0.002, cell_factor = 2.0, ecutwfc = 60, ecutrho = 120, occupations = 'fixed', noncolin = 'false', lspinorb = 'false', london = 'false', nbnd = 16):
 
     s = open(relax_stencil).read()
     s = s.replace('CALCULATION', calculation)
@@ -44,7 +44,7 @@ def make_relax_input(filename, structure_file, kpoint_list, prefix, relax_stenci
     s = s.replace('POT_EXTRAPOLATION', pot_extrapolation)
     s = s.replace('WFC_EXTRAPOLATION', wfc_extrapolation)
 
-    s = s.replace('cell_dynamics', cell_dynamics)
+    s = s.replace('CELL_DYNAMICS', cell_dynamics)
     s = s.replace('WMASS', str(wmass))
     s = s.replace('CELL_FACTOR', str(cell_factor))
 
@@ -68,5 +68,4 @@ if __name__ == "__main__":
     filename = sys.argv[1]
     structure_file = sys.argv[2]
     kpoint_list = sys.argv[3]
-    prefix = sys.argv[4]
-    make_relax_input(filename, structure_file, kpoint_list, prefix)
+    make_relax_input(filename, structure_file, kpoint_list)
