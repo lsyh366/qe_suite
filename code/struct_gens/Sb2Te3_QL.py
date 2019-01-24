@@ -1,10 +1,10 @@
 import numpy as np
 import sys 
 
-def make_Sb2Te3_QL_struc(struc_filename, a = 4.38, c = 30.1, bite_d = 1, tete_d = 1.5):
-
-    IL1 = bite_d/c
-    IL2 = tete_d/c
+def make_Sb2Te3_QL_struc(struc_filename, a = 4.38, c = 30.1, D1 = 1, D2 = 1.5):
+    c = vac_layer + 2*D1 + 2*D2
+    IL1 = D1/c
+    IL2 = D2/c
     
     #Lattice vectors (Hexagonal)
     v1 = [a, 0, 0]

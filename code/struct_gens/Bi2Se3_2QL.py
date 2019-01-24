@@ -1,10 +1,11 @@
 import numpy as np
 import sys 
 
-def make_Bi2Se3_QL_struc(struc_filename, a = 4.138, c = 28.9, D1 = 1, D2 = 1.5):
-    c = vac_layer + 2*D1 + 2*D2
+def make_Bi2Se3_2QL_struc(struc_filename, a = 4.138, vac_layer = 15, inter_ql_d = 2, D1 = 1, D2 = 1.5):
+    c = vac_layer + 4*D1 + 4*D2 + inter_ql_d
     IL1 = D1/c
     IL2 = D2/c
+    IQL = inter_ql_d/c
     
     #Lattice vectors (Hexagonal)
     v1 = [a, 0, 0]
@@ -14,12 +15,12 @@ def make_Bi2Se3_QL_struc(struc_filename, a = 4.138, c = 28.9, D1 = 1, D2 = 1.5):
     f = open(struc_filename, 'w+')
 
     f.write('    ibrav = 0,\n')
-    f.write('    nat = 5, ntyp = 2\n')
+    f.write('    nat = 10, ntyp = 2\n')
     f.write('/\n')
     
     f.write('ATOMIC_SPECIES\n')
     f.write('Bi 208.9804 Bi.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
-    f.write('Se 78.9600 Se.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
+    f.write('Se 78.960 Se.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
     f.write('\n')
     
     f.write('CELL_PARAMETERS (angstrom)\n')
@@ -32,11 +33,16 @@ def make_Bi2Se3_QL_struc(struc_filename, a = 4.138, c = 28.9, D1 = 1, D2 = 1.5):
     f.write('Se  0.0000000  0.0000000 0.0000000\n')
     f.write('Bi  0.6666667  0.3333333 ' +str(IL1) +'\n')
     f.write('Se  0.3333333  0.6666667 ' +str(IL1 +IL2) +'\n')
-    f.write('Bi  0.0000000  0.0000000 ' +str(2*IL1 +IL2) +'\n')
+    f.write('Bi  0.0000000  0.0000000 ' +str(IL1 +2*IL2) +'\n')
     f.write('Se  0.6666667  0.3333333 ' +str(2*IL1 +2*IL2) +'\n')
+    f.write('Se  0.3333333  0.6666667 ' +str(2*IL1 +2*IL2+IQL) +'\n')
+    f.write('Bi  0.0000000  0.0000000 ' +str(3*IL1 +2*IL2+IQL) +'\n')
+    f.write('Se  0.6666667  0.3333333 ' +str(3*IL1 +3*IL2+IQL) +'\n')
+    f.write('Bi  0.3333333  0.6666667 ' +str(4*IL1 +3*IL2+IQL) +'\n')
+    f.write('Se  0.0000000  0.0000000 ' +str(4*IL1 +4*IL2+IQL) +'\n')
 
     f.close()
 
 if __name__ == "__main__":
     filename = sys.argv[1]
-    make_Bi2Se3_QL_struc(filename)
+    make_Bi2Se3_2QL_struc(filename)
