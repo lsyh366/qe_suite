@@ -16,7 +16,7 @@ nbnd       : Number of bands to include in SCF calculation
 import os
 import sys
 
-def make_scf_param(filename, prefix, restart_mode = 'from_scratch', wf_collect = '.false.', pseudo_dir = '../PP/', outdir = './', verbosity ='high', tprnfor = '.true.', tstress= '.true.', diagonalization = 'david', mixing_beta = 0.7, conv_thr = 1e-12, ecutwfc = 110, ecutrho = 1320, occupations = 'fixed', noncolin = '.true.', lspinorb = '.true.', london = '.true.', nbnd = 82, nat = 5, ntyp = 2):
+def make_scf_param(filename, prefix='GS', restart_mode = 'from_scratch', wf_collect = '.false.', pseudo_dir = '../PP/', outdir = './', verbosity ='high', tprnfor = '.true.', tstress= '.true.', diagonalization = 'david', mixing_beta = 0.7, conv_thr = 1e-12, ecutwfc = 110, ecutrho = 1320, occupations = 'fixed', noncolin = '.true.', lspinorb = '.true.', london = '.true.', nbnd = 82, nat = 5, ntyp = 2, ibrav = 0):
 
     f = open(filename, 'w+')
     f.write(' &control\n')
@@ -37,6 +37,7 @@ def make_scf_param(filename, prefix, restart_mode = 'from_scratch', wf_collect =
     f.write('   nbnd        =' +str(nbnd) +'\n')
     f.write('   nat         =' +str(nat) +'\n')
     f.write('   ntyp        =' +str(ntyp) +'\n')
+    f.write('   ibrav       =' +str(ibrav) +'\n')
     f.write('   noncolin    = ' + noncolin + "\n" )
     f.write('   lspinorb    = ' + lspinorb + "\n" )
     f.write('   london      = ' + london + "\n" )
@@ -46,15 +47,13 @@ def make_scf_param(filename, prefix, restart_mode = 'from_scratch', wf_collect =
     f.write("   diagonalization = '" + diagonalization + "'\n")
     f.write('   mixing_beta     =' +str(mixing_beta) +'\n')
     f.write('   conv_thr        =' +str(conv_thr) +'\n')
-
+    f.write(' /\n')
     f.close()
 
 
-    #os.system('cat ' + structure_file + ' >>' + filename)
-    #os.system('cat ' + kpoint_list + ' >>' + filename)
     #os.system('dos2unix ' + filename)
 
 if __name__ == "__main__":
     filename = sys.argv[1]
     prefix = sys.argv[2]
-    make_scf_param(filename, prefix)
+    make_scf_param(filename)

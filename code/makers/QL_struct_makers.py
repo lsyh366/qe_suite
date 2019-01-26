@@ -1,7 +1,7 @@
 import numpy as np
 import sys 
 
-def make_Bi2Te3_QL_struc(struc_filename, a = 4.25, vac_layer = 15, D1 = 1, D2 = 1.5):
+def make_Bi2Te3_QL(struc_filename, a = 4.25, vac_layer = 15, D1 = 1, D2 = 1.5):
     c = vac_layer + 2*D1 + 2*D2
     IL1 = D1/c
     IL2 = D2/c
@@ -12,10 +12,6 @@ def make_Bi2Te3_QL_struc(struc_filename, a = 4.25, vac_layer = 15, D1 = 1, D2 = 
     v3 = [0, 0, c]
     
     f = open(struc_filename, 'w+')
-
-    #f.write('    ibrav = 0,\n')
-    #f.write('    nat = 5, ntyp = 2\n')
-    #f.write('/\n')
     
     f.write('ATOMIC_SPECIES\n')
     f.write('Bi 208.9804 Bi.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
@@ -39,4 +35,4 @@ def make_Bi2Te3_QL_struc(struc_filename, a = 4.25, vac_layer = 15, D1 = 1, D2 = 
 
 if __name__ == "__main__":
     filename = sys.argv[1]
-    make_Bi2Te3_QL_struc(filename)
+    make_Bi2Te3_QL(filename)
