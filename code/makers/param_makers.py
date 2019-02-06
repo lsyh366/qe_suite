@@ -53,8 +53,6 @@ def make_scf_param(filename, prefix='GS', restart_mode = 'from_scratch', wf_coll
 
     #os.system('dos2unix ' + filename)
 
-#def make_relax_param()
-
 
 if __name__ == "__main__":
     filename = sys.argv[1]
