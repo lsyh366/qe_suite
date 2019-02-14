@@ -63,7 +63,7 @@ def make_relax_param(filename, calculation = 'vc-relax', prefix='GS', restart_mo
     f.write("   verbosity       = '" + verbosity + "'\n" )
     f.write('   tprnfor         = ' + tprnfor + "\n" )
     f.write('   tstress         = ' + tstress + "\n" )
-    f.write('   etot_conv_thr   = ' + str(ecut_conv_thr) + '\n')
+    f.write('   etot_conv_thr   = ' + str(etot_conv_thr) + '\n')
     f.write('   forc_conv_thr   = ' + str(forc_conv_thr) + '\n')
     f.write('   nstep           = ' + str(nstep) + '\n')
     f.write(' /\n')
@@ -94,10 +94,11 @@ def make_relax_param(filename, calculation = 'vc-relax', prefix='GS', restart_mo
     f.write("   wfc_extrapolation = '" + wfc_extrapolation +"'\n")
     f.write(' /\n')
 
-    f.write(' &CELL')
+    f.write(' &CELL\n')
     f.write("   cell_dynamics = '" + cell_dynamics +"'\n")
     f.write('   wmass         = ' + str(wmass) + '\n')
     f.write('   cell_factor   = ' + str(cell_factor) + '\n')
+    f.write(' /\n')
     
     f.close()
 
