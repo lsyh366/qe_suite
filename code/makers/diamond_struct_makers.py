@@ -16,7 +16,7 @@ def make_diamond(struc_filename, a = 3.567):
     f.write('CELL_PARAMETERS (angstrom)\n')
     f.write('   ' +str(v1[0]) + '  ' + str(v1[1]) + '  ' + str(v1[2])+ '\n')
     f.write('   ' +str(v2[0]) + '  ' + str(v2[1]) + '  ' + str(v2[2])+ '\n')
-    f.write('   ' +str(v3[0]) + '   ' +str(v2[1])+  '   ' + str(v3[2])+ '\n')
+    f.write('   ' +str(v3[0]) + '   ' +str(v3[1])+  '   ' + str(v3[2])+ '\n')
     f.write('\n')
 
     f.write('ATOMIC_POSITIONS (crystal)\n')
@@ -40,7 +40,7 @@ def make_bulk_Si(struc_filename, a = 5.431):
     f.write('CELL_PARAMETERS (angstrom)\n')
     f.write('   ' +str(v1[0]) + '  ' + str(v1[1]) + '  ' + str(v1[2])+ '\n')
     f.write('   ' +str(v2[0]) + '  ' + str(v2[1]) + '  ' + str(v2[2])+ '\n')
-    f.write('   ' +str(v3[0]) + '   ' +str(v2[1])+  '   ' + str(v3[2])+ '\n')
+    f.write('   ' +str(v3[0]) + '   ' +str(v3[1])+  '   ' + str(v3[2])+ '\n')
     f.write('\n')
 
     f.write('ATOMIC_POSITIONS (crystal)\n')
@@ -64,7 +64,7 @@ def make_bulk_Ge(struc_filename, a = 5.658):
     f.write('CELL_PARAMETERS (angstrom)\n')
     f.write('   ' +str(v1[0]) + '  ' + str(v1[1]) + '  ' + str(v1[2])+ '\n')
     f.write('   ' +str(v2[0]) + '  ' + str(v2[1]) + '  ' + str(v2[2])+ '\n')
-    f.write('   ' +str(v3[0]) + '   ' +str(v2[1])+  '   ' + str(v3[2])+ '\n')
+    f.write('   ' +str(v3[0]) + '   ' +str(v3[1])+  '   ' + str(v3[2])+ '\n')
     f.write('\n')
 
     f.write('ATOMIC_POSITIONS (crystal)\n')
