@@ -10,8 +10,8 @@ def make_bulk_NaCl(struc_filename, a = 5.6402):
     f = open(struc_filename, 'w+')
     
     f.write('ATOMIC_SPECIES\n')
-    f.write('Na 22.98798 Na.pbe-n-kjpaw_psl.1.0.0.UPF\n')
-    f.write('Cl 35.45300 Cl.pbesol-spn-kjpaw_psl.1.0.0.UPF\n')
+    f.write('Na 22.98798 Na.pbe-spnl-kjpaw_psl.1.0.0.UPF\n')
+    f.write('Cl 35.45300 Cl.pbe-n-kjpaw_psl.1.0.0.UPF\n')
     f.write('\n')
     
     f.write('CELL_PARAMETERS (angstrom)\n')
