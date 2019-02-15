@@ -1,9 +1,4 @@
 
-# coding: utf-8
-
-# In[24]:
-
-
 import numpy as np
 import re
 import os 
@@ -12,19 +7,11 @@ import nltk
 import pickle
 #nltk.download('punkt')
 
-
-# In[25]:
-
-
 def file_len(fname):
     with open(fname) as f:
         for i in enumerate(f,1):
             pass
     return i[0]
-
-
-# In[26]:
-
 
 def last_line(string, file):
     counter = 0
@@ -34,20 +21,12 @@ def last_line(string, file):
                 counter = num
     return counter
 
-
-# In[27]:
-
-
 def first_line(string, file):
     with open(file) as file:
         for num, line in enumerate(file, 0):
             if string in line:
                 break
     return num
-
-
-# In[32]:
-
 
 def get_natoms(relax_output_file):
      
@@ -58,10 +37,6 @@ def get_natoms(relax_output_file):
             natoms = re.sub("[^0-9]", "", line)
             natoms = int(natoms)
     return natoms
-
-
-# In[163]:
-
 
 def get_relax_dict(relax_output_file, pickle_name, struct_file_name):
     
@@ -281,9 +256,6 @@ def get_relax_dict(relax_output_file, pickle_name, struct_file_name):
     relax_dict['scf_forces'] = scf_forces
     
     return relax_dict
-
-
-# In[166]:
 
 
 relax_dict = get_relax_dict('relax.out', 'picklepickle', 'relaxed_struct')

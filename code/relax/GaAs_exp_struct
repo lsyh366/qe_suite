@@ -1,9 +1,0 @@
-    ibrav=2,celldm(1)=10.838928,
-    nat=2, ntyp= 2
-/
-ATOMIC_SPECIES
-Ga   69.723   Ga.pbe-hgh.UPF
-As   74.92160 As.pbe-hgh.UPF
-ATOMIC_POSITIONS  crystal
-  Ga 0.0   0.0   0.0
-  As -0.25  0.75  -0.25
