@@ -2,12 +2,11 @@ import numpy as np
 import sys 
 
 def make_graphene(struc_filename, a = 2.460, vac_layer = 15):
-    c = vac_layer + 2*D1 + 2*D2
     
     #Lattice vectors (Hexagonal)
     v1 = [a, 0, 0]
     v2 = [-0.5*a, 0.5*np.sqrt(3)*a, 0]
-    v3 = [0, 0, c]
+    v3 = [0, 0, vac_layer]
     
     f = open(struc_filename, 'w+')
     
