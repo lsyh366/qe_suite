@@ -27,6 +27,7 @@ def make_bash_niagara(filename, nodes=1, ntasks=40, time='04:00:00', mail_type =
     f.close()
     
     os.system('dos2unix ' + filename)
+
 def make_bash_graham(filename, nodes=1, ntasks_per_node=32, time='04:00:00', mail_type = 'END,FAIL', mail_user = 'slurmnotifs@gmail.com', account ='def-maassenj', job_name = 'scf', executable = 'pw.x', qe_inputfile = 'scf.in', qe_outputfile = 'scf.out'):
 
     f = open(filename, 'w')
