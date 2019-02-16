@@ -1,7 +1,7 @@
 import numpy as np
 import sys 
 
-def make_bulk_Bi2Te3_struc(struc_filename, a = 4.383, c = 30.487, mu = 0.212000, nu =0.400000):
+def make_bulk_Bi2Te3(struc_filename, a = 4.383, c = 30.487, mu = 0.212000, nu =0.400000):
 
     #Lattice vectors (Rhombohedral)
     v1 = [-0.5*a, -0.5*a/np.sqrt(3) ,c/3]
@@ -30,7 +30,7 @@ def make_bulk_Bi2Te3_struc(struc_filename, a = 4.383, c = 30.487, mu = 0.212000,
     
     f.close()
 
-def make_bulk_Bi2Se3_struc(struc_filename, a = 4.138, c = 28.64, mu = 0.211000, nu =0.400000):
+def make_bulk_Bi2Se3(struc_filename, a = 4.138, c = 28.64, mu = 0.211000, nu =0.400000):
     
     #Lattice vectors (Rhombohedral)
     v1 = [-0.5*a, -0.5*a/np.sqrt(3) ,c/3]
@@ -59,7 +59,7 @@ def make_bulk_Bi2Se3_struc(struc_filename, a = 4.138, c = 28.64, mu = 0.211000, 
     
     f.close()
 
-def make_bulk_Sb2Te3_struc(struc_filename, a = 4.250, c = 30.35, mu = 0.212000, nu =0.400000):
+def make_bulk_Sb2Te3(struc_filename, a = 4.250, c = 30.35, mu = 0.212000, nu =0.400000):
 
     # #Lattice vectors (Rhombohedral)
     v1 = [-0.5*a, -0.5*a/np.sqrt(3) ,c/3]
