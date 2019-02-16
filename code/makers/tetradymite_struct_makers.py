@@ -69,7 +69,7 @@ def make_bulk_Sb2Te3(struc_filename, a = 4.250, c = 30.35, mu = 0.212000, nu =0.
     f = open(struc_filename, 'w+')
     
     f.write('ATOMIC_SPECIES\n')
-    f.write('Sb 121.760 Bi.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
+    f.write('Sb 121.760 Sb.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
     f.write('Te 127.600 Te.rel-pbe-dn-kjpaw_psl.1.0.0.UPF\n')
     f.write('\n')
     
